@@ -1,0 +1,69 @@
+.categories-grid {
+  width: 100%;
+  flex-grow: 1.9;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 10px;
+  .upper-row,
+  .lower-row {
+    flex-grow: 1;
+    display: grid;
+    column-gap: 10px;
+  }
+  .upper-row {
+    grid-template-columns: 2fr 1fr 2fr 1fr;
+    // margin-bottom: 20px;
+    .apple-products {
+      background: url('https://res.cloudinary.com/dubjerksn/image/upload/v1646437844/Phone%204%20U/pbyinkvd6dtkmobbrpo0.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+    .electronics-products {
+      background: url('https://res.cloudinary.com/dubjerksn/image/upload/v1646496244/Phone%204%20U/avzj53qcubu2k9twylri.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: #dc464d;
+    }
+  }
+  .lower-row {
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    .gaming-products {
+      background: url('https://res.cloudinary.com/dubjerksn/image/upload/v1646497062/Phone%204%20U/iyg6cwyo4mksqhb5soxa.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: #006cc7;
+
+    }
+    .xiaomi-products {
+      background: url('https://res.cloudinary.com/dubjerksn/image/upload/v1646497911/Phone%204%20U/ykoagxail5syvejmlbzw.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: #fb9a31;
+
+    }
+    .samsung-products {
+      background: url('https://res.cloudinary.com/dubjerksn/image/upload/v1646491168/Phone%204%20U/d8nd0wdwhshzsyj7wrfw.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: #f2c79d;
+    }
+  }
+  .box {
+    border: 1px solid black;
+    align-items: end;
+    flex-grow: 1;
+
+    .category-name {
+      justify-content: center;
+      align-items: center;
+      height: 20%;
+      background-color: rgba(0, 0, 0, 0.397);
+      width: 100%;
+      p {
+        font-family: assistant-bold;
+        color: white;
+        font-size: 18px;
+      }
+    }
+  }
+}

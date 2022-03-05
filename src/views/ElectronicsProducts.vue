@@ -1,5 +1,5 @@
 <template>
-  <section class="apple-phones-container flex column align-center">
+  <section class="electronics-products-container flex column align-center">
     <div
       v-if="products.length > 0"
       class="products-container flex align-center justify-center"
@@ -24,7 +24,7 @@ export default {
     else {
       await this.$store.dispatch({
         type: 'setFilterBy',
-        filterBy: { type: 'APPLE' },
+        filterBy: { type: 'ELECTRONICS' },
       });
     }
   },

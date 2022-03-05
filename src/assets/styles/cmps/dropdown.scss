@@ -1,0 +1,38 @@
+.dropdowns-container {
+  flex-direction: row-reverse;
+    justify-content: flex-start;
+  font-family: assistant;
+  .dropdown {
+    .el-dropdown-link {
+      color: white;
+    }
+  }
+  .divider {
+    font-size: 10px;
+    padding: 0 10px;
+  }
+}
+.el-popper {
+  width: 420px;
+  height: 360px;
+  font-family: assistant;
+  .links-container {
+    .link-container {
+        justify-content: flex-end;
+        padding-top: 10px;
+      p {
+        text-align: right;
+        font-size: 16px;
+        padding: 0 10px 0 0  ;
+        &:hover {
+          color: #f0c678;
+        }
+      }
+      svg {
+        width: 12px;
+        height: 12px;
+        margin-inline-end: 10px;
+      }
+    }
+  }
+}

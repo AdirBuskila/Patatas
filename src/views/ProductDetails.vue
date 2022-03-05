@@ -22,7 +22,6 @@
           @set-addon="setAddon"
           :inventory="product.inventory"
         />
-        <!-- <div class="about"></div> -->
       </div>
       <hr />
       <div class="purchase-product-container flex">

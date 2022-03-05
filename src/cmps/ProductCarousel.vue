@@ -1,12 +1,13 @@
 <template>
-    <el-carousel trigger="click" height="100px">
+<div class="">
+    <el-carousel trigger="click" height="150px">
       <el-carousel-item v-for="item in productImgs" :key="item">
-        <!-- <h3 class="small">{{ item }}</h3> -->
         <div class="img-container flex">
         <img :src="item" />
         </div>
       </el-carousel-item>
     </el-carousel>
+</div>
 </template>
 <script>
 export default {

@@ -1,5 +1,5 @@
 <template>
-  <section class="apple-phones-container flex column align-center">
+  <section class="samsung-phones-container flex column align-center">
     <div
       v-if="products.length > 0"
       class="products-container flex align-center justify-center"
@@ -14,12 +14,37 @@ export default {
   components: {
     ProductList,
   },
-    async created() {
-      await this.$store.dispatch({ type: 'setFilterBy', filterBy:{type: 'SAMSUNG'}});
-    },
+  async created() {
+    const { filterPhoneBy } = this.$route.params;
+    if (filterPhoneBy)
+      await this.$store.dispatch({
+        type: 'setFilterBy',
+        filterBy: { type: filterPhoneBy },
+      });
+    else {
+      await this.$store.dispatch({
+        type: 'setFilterBy',
+        filterBy: { type: 'SAMSUNG' },
+      });
+    }
+  },
   computed: {
     products() {
       return this.$store.getters.products;
+    },
+  },
+  methods: {
+    async filterList() {
+      const { filterPhoneBy } = this.$route.params;
+      await this.$store.dispatch({
+        type: 'setFilterBy',
+        filterBy: { type: filterPhoneBy },
+      });
+    },
+  },
+  watch: {
+    '$route.path'() {
+      this.filterList();
     },
   },
 };

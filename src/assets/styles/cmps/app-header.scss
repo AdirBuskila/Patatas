@@ -2,40 +2,13 @@
   background-color: black;
   color: aliceblue;
   .app-header {
-    height: 10vh;
+    height: 7vh;
     .logo {
       font-family: righteous;
-      font-size: 24px;
+      font-size: 36px;
     }
     nav {
       font-size: 19px;
     }
-  }
-  .dropdowns-container {
-    justify-content: flex-end;
-    font-family: assistant;
-    .dropdown {
-      .el-dropdown-link {
-        color: white;
-      }
-    }
-    .divider {
-      font-size: 10px;
-      padding: 0 10px;
-    }
-  }
-}
-.el-popper {
-  width: 420px;
-  height: 460px;
-  font-family: assistant;
-  .links-container{
-    p{
-      text-align: right;
-      font-size: 16px;
-      padding: 10px 20px 10px 0;
-
-    }
-    
   }
 }

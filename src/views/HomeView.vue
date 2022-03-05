@@ -1,26 +1,15 @@
 <template>
   <section class="home-page flex column align-center">
-    <h1>Home page</h1>
-    <div
-      v-if="products.length > 0"
-      class="products-container flex align-center justify-center"
-    >
-      <ProductList v-if="products !== null" :products="products" />
-    </div>
+    <div class="hero-carousel flex"></div>
+    <CategoriesGrid />
   </section>
 </template>
 
 <script>
-import ProductList from '@/cmps/ProductList.vue';
+import CategoriesGrid from "../cmps/CategoriesGrid.vue";
 export default {
-  props: {
-    ProductList,
-  },
-  components: { ProductList },
-  computed: {
-    products() {
-      return this.$store.getters.products;
-    },
-  },
+  components:{
+    CategoriesGrid
+  }
 };
 </script>

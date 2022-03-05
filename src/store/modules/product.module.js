@@ -24,15 +24,6 @@ export default {
         cart(state) {
             return state.cart;
         },
-        coinsPreview(state) {
-            const coinArray = [
-                state.coins[0], // BTC
-                state.coins[1], // ETH
-                state.coins[3], // BNB
-                state.coins[9], // AVAX
-            ]
-            return coinArray
-        }
     },
     mutations: {
         setProducts(state, { products }) {
@@ -59,7 +50,6 @@ export default {
             commit({ type: 'setProducts', products });
         },
         async setFilterBy({ commit }, { filterBy }) {
-            console.log('filterBy :>> ', filterBy);
             const products = await productService.query(filterBy)
             commit({ type: 'setProducts', products });
         },

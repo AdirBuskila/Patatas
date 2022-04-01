@@ -1,41 +1,16 @@
+const deliveryFee = 15
 
 export const productService = {
     query,
     get,
-    getProductBrandImg,
+    getTotalPrice,
+    getCartSubTotal,
+    getCartTotal,
+    getAddonClass,
 }
 
-async function query(filterBy = { type: 'ALL' }) {
-    let products = data
-    switch (filterBy.type) {
-        case 'ALL':
-            break;
-        case 'APPLE':
-            products = data.filter(product => product.brand === 'apple' && product.name.includes('iPhone'))
-            break;
-        case 'SAMSUNG':
-            products = data.filter(product => product.name.includes('Samsung') && product.type === 'phone')
-            break;
-        case 'XIAOMI':
-            products = data.filter(product => product.name.includes('Xiaomi') && product.type === 'phone')
-            break;
-        case 'ELECTRONICS':
-            products = data.filter(product => product.tags.includes('electronics'))
-            break;
-        case 'GAMING':
-            products = data.filter(product => product.type.includes('gaming'))
-            break;
-        case 'IPHONE':
-            products = data.filter(product => product.name.includes('iPhone'))
-            break;
-        case 'IPHONE-13':
-            products = data.filter(product => product.name.includes('iPhone 13'))
-            break;
-        case 'IPHONE-12':
-            products = data.filter(product => product.name.includes('iPhone 12'))
-            break;
-    }
-    return products
+async function query() {
+    return data
 }
 
 async function get(id) {
@@ -43,261 +18,539 @@ async function get(id) {
     return product
 }
 
-function getProductBrandImg(brand) {
-    let img
-    switch (brand) {
-        case 'apple':
-            img = 'https://res.cloudinary.com/dubjerksn/image/upload/v1646491690/Phone%204%20U/ruxh82eletxxxk6avb1k.png'
-            break;
-        case 'samsung':
-            img = 'https://d3m9l0v76dty0.cloudfront.net/system/photos/459217/small/e635ba00c69426cc1e680b793fad9cc3.png?1594554637'
-            break;
-        case 'sony':
-            img = 'https://res.cloudinary.com/dubjerksn/image/upload/v1646491400/Phone%204%20U/xjwqdybefvt82fcwus3i.png'
-            break;
-        case 'xiaomi':
-            img = 'https://res.cloudinary.com/dubjerksn/image/upload/v1646494359/Phone%204%20U/gj5pmdos1rdykbu5faiy.png'
-            break;
+function getAddonClass(addonsArray, addon) {
+    let addonMap = addonsArray.map(currAddon => {
+        return currAddon.name === addon.name
+    })
+    if (addonMap.indexOf(true) !== -1) {
+        return 'addon-preview selected flex pointer'
+    } else {
+        return 'addon-preview flex pointer'
     }
-    return img
+
 }
+
+
+function getTotalPrice(product) {
+    let total = product.price
+    product.addons.forEach((addon) => {
+        total += addon.value
+    })
+    return total
+}
+
+function getCartSubTotal(cart) {
+    let total = 0
+    cart.forEach(item => {
+        total += getTotalPrice(item)
+    })
+    return total
+}
+function getCartTotal(cart) {
+    let total = deliveryFee
+    cart.forEach(item => {
+        total += getTotalPrice(item)
+    })
+    return total
+}
+
 
 const data = [
     {
-        _id: 'plv5D2',
-        brand: 'apple',
-        type: 'phone',
-        name: 'iPhone 13 256GB',
-        price: 4749,
-        color: 'black',
+        _id: 'plvfghfghfgh5D2',
+        type: 'main',
+        name: 'תפוח אדמה',
+        price: 31,
         inStock: true,
-        description: 'מכשיר הדגל החדש מבית Apple אייפון 13 פרו , בעל המעבד החזק ביותר שמשנה את חוקי המשחק וטכנולוגיה מתקדמת לחווית שימוש יוצאת דופן. שילוב של עיצוב מרשים ומערך צילום מרהיב ומתקדם מאי פעם! למכשיר החדש מגוון חידושים במפרט הטכני של המכשיר, בחוזק המכשיר וזמן השימוש בו, בעיצובו ובצבעים החדשים והאלגנטיים של סדרת iPhone 13. הסמארטפון שיביא אתכם הכי רחוק שרק אפשר בעולם הטכנולוגיה.',
-        tags: 'iphone iphone-13 256gb black',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png'
-        ],
+        description: 'כולל תוספות ללא הגבלה',
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967708/Patats/tttjaqpdpguf83tny20j.jpg',
+        addons: [
+            { name: 'טונה', value: 2 },
+            { name: 'בצל רגיל', value: 0 },
+            { name: 'בצל ירוק', value: 0 },
+            { name: 'סחוג', value: 0 },
+            { name: 'פסטו', value: 0 },
+            { name: 'פטריות פורטבלו', value: 0 },
+            { name: 'פרמזן', value: 0 },
+            { name: 'זיתים שחורים', value: 0 },
+            { name: 'זיתים ירוקים', value: 0 },
+            { name: 'רוטב אלפרדו רגיל', value: 0 },
+            { name: 'רוטב אלפרדו על בסיס פסטו', value: 0 },
+            { name: 'גבינה צהובה', value: 0 },
+            { name: 'מוצרלה', value: 0 },
+            { name: 'עגבנייה', value: 0 },
+            { name: 'ביצה קשה', value: 3 },
+            { name: 'תירס', value: 0 },
+            { name: 'חמאה', value: 0 },
+            { name: 'חלומי', value: 5 },
+            { name: 'הקרמה', value: 4 },
+            { name: 'גבינה טבעונית', value: 3 },
+            { name: 'גבינה בולגרית', value: 2 },
+            { name: 'שעועית אדומה', value: 0 },
+            { name: 'ביצת עין', value: 3 },
+            { name: 'טחינה', value: 0 },
+            { name: 'רוטב שקשוקה ללא ביצה (לטבעונים)', value: 2 },
+            { name: "צ'דר", value: 7 },
+        ]
     },
     {
-        _id: 'KwcOfS',
-        brand: 'apple',
-        type: 'phone',
-        name: 'iPhone 12 128GB',
-        price: 3079,
-        color: 'blue',
+        _id: 'plzxczxcv5D2',
+        type: 'main',
+        name: 'בטטה',
+        price: 32,
         inStock: true,
-        description: 'מכשיר הדגל החדש מבית Apple אייפון 13 פרו , בעל המעבד החזק ביותר שמשנה את חוקי המשחק וטכנולוגיה מתקדמת לחווית שימוש יוצאת דופן. שילוב של עיצוב מרשים ומערך צילום מרהיב ומתקדם מאי פעם! למכשיר החדש מגוון חידושים במפרט הטכני של המכשיר, בחוזק המכשיר וזמן השימוש בו, בעיצובו ובצבעים החדשים והאלגנטיים של סדרת iPhone 13. הסמארטפון שיביא אתכם הכי רחוק שרק אפשר בעולם הטכנולוגיה.',
-        tags: 'iphone iphone-12 128gb blue',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png'
-        ],
+        description: 'כולל תוספות ללא הגבלה',
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967708/Patats/tttjaqpdpguf83tny20j.jpg',
+        addons: [
+            { name: 'טונה', value: 2 },
+            { name: 'בצל רגיל', value: 0 },
+            { name: 'בצל ירוק', value: 0 },
+            { name: 'סחוג', value: 0 },
+            { name: 'פסטו', value: 0 },
+            { name: 'פטריות פורטבלו', value: 0 },
+            { name: 'פרמזן', value: 0 },
+            { name: 'זיתים שחורים', value: 0 },
+            { name: 'זיתים ירוקים', value: 0 },
+            { name: 'רוטב אלפרדו רגיל', value: 0 },
+            { name: 'רוטב אלפרדו על בסיס פסטו', value: 0 },
+            { name: 'גבינה צהובה', value: 0 },
+            { name: 'מוצרלה', value: 0 },
+            { name: 'עגבנייה', value: 0 },
+            { name: 'ביצה קשה', value: 3 },
+            { name: 'תירס', value: 0 },
+            { name: 'חמאה', value: 0 },
+            { name: 'חלומי', value: 5 },
+            { name: 'הקרמה', value: 4 },
+            { name: 'גבינה טבעונית', value: 3 },
+            { name: 'גבינה בולגרית', value: 2 },
+            { name: 'שעועית אדומה', value: 0 },
+            { name: 'ביצת עין', value: 3 },
+            { name: 'טחינה', value: 0 },
+            { name: 'רוטב שקשוקה ללא ביצה (לטבעונים)', value: 2 },
+            { name: "צ'דר", value: 7 },
+        ]
     },
     {
-        _id: 'Jatc7z',
-        brand: 'apple',
-        type: 'phone',
-        name: 'iPhone 13 Pro Max 512GB',
-        price: 5949,
-        color: 'white',
+        _id: 'plvasdasdffff5D2',
+        type: 'main',
+        name: 'מיקס תפוא ובטטה',
+        price: 33,
         inStock: true,
-        description: 'מכשיר הדגל החדש מבית Apple אייפון 13 פרו , בעל המעבד החזק ביותר שמשנה את חוקי המשחק וטכנולוגיה מתקדמת לחווית שימוש יוצאת דופן. שילוב של עיצוב מרשים ומערך צילום מרהיב ומתקדם מאי פעם! למכשיר החדש מגוון חידושים במפרט הטכני של המכשיר, בחוזק המכשיר וזמן השימוש בו, בעיצובו ובצבעים החדשים והאלגנטיים של סדרת iPhone 13. הסמארטפון שיביא אתכם הכי רחוק שרק אפשר בעולם הטכנולוגיה.',
-        tags: 'iphone iphone-13-pro-max 512gb white',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png'
-        ],
+        description: 'כולל תוספות ללא הגבלה',
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967708/Patats/tttjaqpdpguf83tny20j.jpg',
+        addons: [
+            { name: 'טונה', value: 2 },
+            { name: 'בצל רגיל', value: 0 },
+            { name: 'בצל ירוק', value: 0 },
+            { name: 'סחוג', value: 0 },
+            { name: 'פסטו', value: 0 },
+            { name: 'פטריות פורטבלו', value: 0 },
+            { name: 'פרמזן', value: 0 },
+            { name: 'זיתים שחורים', value: 0 },
+            { name: 'זיתים ירוקים', value: 0 },
+            { name: 'רוטב אלפרדו רגיל', value: 0 },
+            { name: 'רוטב אלפרדו על בסיס פסטו', value: 0 },
+            { name: 'גבינה צהובה', value: 0 },
+            { name: 'מוצרלה', value: 0 },
+            { name: 'עגבנייה', value: 0 },
+            { name: 'ביצה קשה', value: 3 },
+            { name: 'תירס', value: 0 },
+            { name: 'חמאה', value: 0 },
+            { name: 'חלומי', value: 5 },
+            { name: 'הקרמה', value: 4 },
+            { name: 'גבינה טבעונית', value: 3 },
+            { name: 'גבינה בולגרית', value: 2 },
+            { name: 'שעועית אדומה', value: 0 },
+            { name: 'ביצת עין', value: 3 },
+            { name: 'טחינה', value: 0 },
+            { name: 'רוטב שקשוקה ללא ביצה (לטבעונים)', value: 2 },
+            { name: "צ'דר", value: 7 },
+        ]
     },
     {
-        _id: 'U2brU1',
-        brand: 'apple',
-        type: 'phone',
-        name: 'iPhone 13 Mini 128GB',
-        price: 2889,
-        color: 'black',
+        _id: 'plv5dfgdfgD2',
+        type: 'soup',
+        name: 'מרק בטטה',
+        price: 27,
         inStock: true,
-        description: 'מכשיר הדגל החדש מבית Apple אייפון 13 פרו , בעל המעבד החזק ביותר שמשנה את חוקי המשחק וטכנולוגיה מתקדמת לחווית שימוש יוצאת דופן. שילוב של עיצוב מרשים ומערך צילום מרהיב ומתקדם מאי פעם! למכשיר החדש מגוון חידושים במפרט הטכני של המכשיר, בחוזק המכשיר וזמן השימוש בו, בעיצובו ובצבעים החדשים והאלגנטיים של סדרת iPhone 13. הסמארטפון שיביא אתכם הכי רחוק שרק אפשר בעולם הטכנולוגיה.',
-        tags: 'iphone iphone-13-mini 128gb black',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646033984/Phone%204%20U/fq3hwh0plophof4msomc.png',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png'
-        ],
+        description: "עם מבחר תוספות לבחירה: גבינה צהובה, גבינה בולגרית, טונה, בצל רגיל, בצל ירוק, סחוג, פסטו, פטריות פורטובלו, פרמז'ן, זיתים ירוקים, זיתים שחורים, רוטב אלפרדו רגיל, רוטב אלפרדו על בסיס פסטו, ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967707/Patats/wcowtantvwgranbctq0v.jpg',
+        addons: []
     },
     {
-        _id: 'MstiWe',
-        brand: 'samsung',
-        type: 'phone',
-        name: 'Samsung Galaxy S22 Ultra 256GB',
-        price: 3749,
-        color: 'black',
+        _id: 'pasdasdlv5D2',
+        type: 'special',
+        name: 'בייגל טוסט',
+        price: 28,
         inStock: true,
-        description: 'מכשיר הדגל החדש מבית Apple אייפון 13 פרו , בעל המעבד החזק ביותר שמשנה את חוקי המשחק וטכנולוגיה מתקדמת לחווית שימוש יוצאת דופן. שילוב של עיצוב מרשים ומערך צילום מרהיב ומתקדם מאי פעם! למכשיר החדש מגוון חידושים במפרט הטכני של המכשיר, בחוזק המכשיר וזמן השימוש בו, בעיצובו ובצבעים החדשים והאלגנטיים של סדרת iPhone 13. הסמארטפון שיביא אתכם הכי רחוק שרק אפשר בעולם הטכנולוגיה.',
-        tags: 'samsung-galaxy s22-ultra 256gb black',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646034233/Phone%204%20U/edpxetumsggng7p1oml3.png',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png'
-        ],
+        description: "עם מבחר תוספות לבחירה: גבינה צהובה, גבינה בולגרית, טונה, בצל רגיל, בצל ירוק, סחוג, פסטו, פטריות פורטובלו, פרמז'ן, זיתים ירוקים, זיתים שחורים, רוטב אלפרדו רגיל, רוטב אלפרדו על בסיס פסטו, ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967710/Patats/t7qygpmptpgvmqak9i69.jpg',
+        addons: []
     },
     {
-        _id: 'FRYrNj',
-        brand: 'samsung',
-        type: 'phone',
-        name: 'Samsung Z Flip3 5G',
-        price: 3279,
-        color: 'black',
+        _id: 'plv5Dqweqwe2',
+        type: 'main',
+        name: 'פאטאטס שקשוקה',
+        price: 32,
         inStock: true,
-        description: 'מכשיר הדגל החדש מבית Apple אייפון 13 פרו , בעל המעבד החזק ביותר שמשנה את חוקי המשחק וטכנולוגיה מתקדמת לחווית שימוש יוצאת דופן. שילוב של עיצוב מרשים ומערך צילום מרהיב ומתקדם מאי פעם! למכשיר החדש מגוון חידושים במפרט הטכני של המכשיר, בחוזק המכשיר וזמן השימוש בו, בעיצובו ובצבעים החדשים והאלגנטיים של סדרת iPhone 13. הסמארטפון שיביא אתכם הכי רחוק שרק אפשר בעולם הטכנולוגיה.',
-        tags: 'samsung-galaxy flip3 black',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646034293/Phone%204%20U/fopiz1o1dfmbwfoe86uh.jpg',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png'
-        ],
+        description: 'שקשוקה פיקנטית על תפו״א אדמה לוהט.',
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967710/Patats/pv4sn4opxoccdnldyikx.jpg',
+        addons: [
+            { name: 'טונה', value: 2 },
+            { name: 'בצל רגיל', value: 0 },
+            { name: 'בצל ירוק', value: 0 },
+            { name: 'סחוג', value: 0 },
+            { name: 'פסטו', value: 0 },
+            { name: 'פטריות פורטבלו', value: 0 },
+            { name: 'פרמזן', value: 0 },
+            { name: 'זיתים שחורים', value: 0 },
+            { name: 'זיתים ירוקים', value: 0 },
+            { name: 'רוטב אלפרדו רגיל', value: 0 },
+            { name: 'רוטב אלפרדו על בסיס פסטו', value: 0 },
+            { name: 'גבינה צהובה', value: 0 },
+            { name: 'מוצרלה', value: 0 },
+            { name: 'עגבנייה', value: 0 },
+            { name: 'ביצה קשה', value: 3 },
+            { name: 'תירס', value: 0 },
+            { name: 'חמאה', value: 0 },
+            { name: 'חלומי', value: 5 },
+            { name: 'הקרמה', value: 4 },
+            { name: 'גבינה טבעונית', value: 3 },
+            { name: 'גבינה בולגרית', value: 2 },
+            { name: 'טחינה', value: 0 },
+        ]
+
     },
     {
-        _id: 'zy2BwD',
-        brand: 'samsung',
-        type: 'phone',
-        name: 'Samsung Galaxy A12 64GB',
-        price: 579,
-        color: 'black',
+        _id: 'plvqweqwe5D2',
+        type: 'special',
+        name: 'כרובית מטוגנת',
+        price: 35,
         inStock: true,
-        description: 'מכשיר הדגל החדש מבית Apple אייפון 13 פרו , בעל המעבד החזק ביותר שמשנה את חוקי המשחק וטכנולוגיה מתקדמת לחווית שימוש יוצאת דופן. שילוב של עיצוב מרשים ומערך צילום מרהיב ומתקדם מאי פעם! למכשיר החדש מגוון חידושים במפרט הטכני של המכשיר, בחוזק המכשיר וזמן השימוש בו, בעיצובו ובצבעים החדשים והאלגנטיים של סדרת iPhone 13. הסמארטפון שיביא אתכם הכי רחוק שרק אפשר בעולם הטכנולוגיה.',
-        tags: 'samsung-galaxy a12 64gb black',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646034783/Phone%204%20U/xrk43fdzoij9izvfkxlq.jpg',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033785/Phone%204%20U/ukzcs9wcnz3yjo6k0psd.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646033538/Phone%204%20U/clbeuwqz0ze2rtcg70zg.png'
-        ],
+        description: '',
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967710/Patats/v2aoqctpg0zfpf1lmpih.jpg',
+        addons: []
     },
     {
-        _id: 'zy34344',
-        brand: 'sony',
-        type: 'gaming console',
-        name: 'PS5 825GB Digital Edition',
-        price: 2680,
-        color: 'white',
+        _id: 'plqvccccc5Dasdas2',
+        type: 'special',
+        name: 'סלט בהרכבה',
+        price: 33,
         inStock: true,
-        description: 'קונסולה PlayStation 5 סוג המכשיר קונסולה שולחנית אחסון פנימי 825GB משחקי אונליין תומך משחק אונליין מהירות מעבד 3,500 MHz זיכרון RAM 16GB DVD כולל Blu-Ray מקור חשמל חיבור קבוע לחשמל מסך ללא מסך',
-        tags: 'ps5 gaming console',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646489230/Phone%204%20U/gceza5r1lwoibpvypfsc.jpg',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646489230/Phone%204%20U/gceza5r1lwoibpvypfsc.jpg',
-        ],
+        description: '',
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967705/Patats/d7tpu5gjzcvv8jyuevak.jpg',
+        addons: []
     },
     {
-        _id: 'zy23sdff',
-        brand: 'xiaomi',
-        type: 'vaccum mop',
-        name: 'Xiaomi Mi Robot Vacuum Mop',
-        fullname: 'שואב אבק רובוטי שוטף Xiaomi Mi Robot Vacuum Mop Essential',
-        price: 600,
-        color: 'white',
+        _id: 'pwwwwlvqqq5Deeee2',
+        type: 'special',
+        name: 'אצבעות תירס',
+        price: 23,
         inStock: true,
-        description: 'מערכת ניווט ויזואלית דינאמית | עוצמת שאיבה חזקה | סוללה עוצמתית ערכה מלאה: מיכל אבק פנימי ומיכל מים חיצוני שליטה מיישומון Mi Home בסמארטפון בעל מגוון חיישנים לפעולה ניקיון מושלמת צפייה במפת הניקיון בזמן אמת סוללה עוצמתית 3200mAh לזמן עבודה ארוך של כמעט 2 שעות מצלמת ניווט דינאמית לסריקה מרחבית גובה השואב רק 8.15 ס"מ למעבר קל תחת כל רהיט',
-        tags: 'electronics vaccum',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646493343/Phone%204%20U/fywzjsvsgwtcwvd6pt8w.jpg',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646493343/Phone%204%20U/fywzjsvsgwtcwvd6pt8w.jpg',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646493707/Phone%204%20U/gilqbo52wg4yeitubb4s.jpg',
-        ],
+        description: '',
+        img: '',
+        addons: []
     },
     {
-        _id: 'zy23sdf43sdfsdf44',
-        brand: 'xiaomi',
-        type: 'phone',
-        name: 'Xiaomi MI 11 5G 8+128GB',
-        price: 1599,
-        color: 'black',
+        _id: 'pdddlvdds5Dffff2',
+        type: 'special',
+        name: "צ'יפס פאטאטס",
+        price: 28,
         inStock: true,
-        description: 'מציגה מכשיר מדגם Mi 11 בטכנולוגית 5G. מצויד במסך 6.55" מקומר לצדדים ואיכותי כמו שעוד לא ראיתם',
-        tags: 'xiaomi phone 128gb',
-        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1646498467/Phone%204%20U/gegicgjfj8lrbkn31tnm.png',
-        inventory: [
-            { id: 'qfdts', title: 'צבע לבחירה', selectOptions: [{ name: '', id: '1', value: 0, type: 'color' }, { name: 'שחור', id: '2', value: 0, type: 'color' }, { name: 'תכלת', id: '3', value: 0, type: 'color' }] },
-            { id: 'asdadfdf', title: 'Airpods', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airpod' }, { name: 'Airpods Pro 799 ₪', id: '2', value: 799, type: 'airpod' }, { name: 'Airpods 3 799 ₪', id: '3', value: 799, type: 'airpod' }, { name: 'Airpods Max 1790 ₪', id: '4', value: 1790, type: 'airpod' }] },
-            { id: 'qaswe', title: 'ראש מטען מקורי', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'charger' }, { name: 'Apple 20W USB-C 119 ₪', id: '2', value: 119, type: 'charger' }] },
-            { id: 'edswz', title: 'Apple AirTag', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'airtag' }, { name: 'Airtag 120 ₪', id: '2', value: 120, type: 'airtag' }] },
-            { id: 'rftged', title: 'כיסוי לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'case' }, { name: 'Pure gear slim shell שקןף ₪ 79', id: '2', value: 79, type: 'case' }] },
-            { id: 'edwsgt', title: 'מגן מסך לבחירה', selectOptions: [{ name: 'ללא', id: '1', value: 0, type: 'screen-protector' }, { name: 'Pure Gear מגן מסך זכוכית ₪ 79', id: '2', value: 79, type: 'screen-protector' }] },
-        ],
-        carousel: ['https://res.cloudinary.com/dubjerksn/image/upload/v1646498467/Phone%204%20U/gegicgjfj8lrbkn31tnm.png',
-            'https://res.cloudinary.com/dubjerksn/image/upload/v1646498468/Phone%204%20U/ndb1t1do0ohwbwjzraog.png',
-        ],
+        description: "תוספות בתשלום: בולגרית (4 ₪), צ'דר (7 ₪), תוספת הקרמה בעלות 4 ₪.",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967707/Patats/il2oyqs7rlpxuff9vwbo.jpg',
+        addons: [
+            { name: 'תוספת הקרמה', value: 4 },
+            { name: 'בולגרית', value: 4 },
+            { name: "צ'דר", value: 4 }
+        ]
+    },
+    {
+        _id: 'fffplvd5D2ssss',
+        type: 'special',
+        name: "צ'יפס בטטה",
+        price: 28,
+        inStock: true,
+        description: "תוספות בתשלום: בולגרית (4 ₪), צ'דר (7 ₪), תוספת הקרמה בעלות 4 ₪.",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967708/Patats/ksqfhvatiedophmmxyos.jpg',
+        addons: [
+            { name: 'תוספת הקרמה', value: 4 },
+            { name: 'בולגרית', value: 4 },
+            { name: "צ'דר", value: 4 }
+        ]
+    },
+    {
+        _id: 'pslvs5fdD2',
+        type: 'special',
+        name: "מיקס פאטאטס",
+        price: 33,
+        inStock: true,
+        description: "מיקס של צ'יפס בטטה וצ'יפס רגיל. תוספות בתשלום: בולגרית (4 ₪), צ'דר (7 ₪), תוספת הקרמה בעלות 4 ₪.",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967710/Patats/t0wsjoauop9987skyiez.jpg',
+        addons: [
+            { name: 'תוספת הקרמה', value: 4 },
+            { name: 'בולגרית', value: 4 },
+            { name: "צ'דר", value: 4 }
+        ]
+
+    },
+    {
+        _id: 'plvsdfsdf5D2',
+        type: 'special',
+        name: 'פסטה פנה',
+        price: 41,
+        inStock: true,
+        description: "רטבים לבחירה: אלפרדו / רוזה. מוגש עם תוספת לבחירה: בצל / פטריות / מוצרלה / פרמז'ן, ניתן להוסיף תוספות בתשלום.",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967707/Patats/mchwyqnk1wtibbqxylpp.jpg',
+        addons: [
+            { name: 'אלפרדו', value: 0 },
+            { name: 'רוזה', value: 0 },
+            { name: 'בצל', value: 0 },
+            { name: 'פטריות', value: 0 },
+            { name: 'מוצרלה', value: 0 },
+            { name: "פרמז'ן", value: 0 },
+            { name: "הקרמה", value: 4 },
+            { name: "בטטה", value: 7 },
+        ]
+
+    },
+    {
+        _id: 'plvsdfsddfgdfgff5D2',
+        type: 'special',
+        name: "ארנצ'יני",
+        price: 33,
+        inStock: true,
+        description: "תוספות לבחירה: רוטב אלפרדו / רוטב אלפרדו פסטו / פרמז'ן / בצל ירוק. ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967708/Patats/ipvfzxqwiykwj95o2ceo.jpg',
+        addons: [
+            { name: 'אלפרדו', value: 0 },
+            { name: 'אלפרדו פסטו', value: 0 },
+            { name: "פרמז'ן", value: 0 },
+            { name: 'בצל ירוק', value: 0 },
+        ]
+
+    },
+    {
+        _id: 'plv323232cvcv5D2',
+        type: 'desert',
+        name: "אצבעות וופל בלגי",
+        price: 0,
+        inStock: true,
+        description: "מוגש עם שוקולד לבן, שוקולד חום, קצפת וסוכריות. 3 יח'- 25 ₪ / 5 יח'- 35 ₪.",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1647967705/Patats/ul9yi5gamisachww2pmd.jpg',
+        addons: [
+            { name: '3 יחידות', value: 25 },
+            { name: '5 יחידות', value: 35 }
+        ]
+
+    },
+    {
+        _id: 'pdebgdhnh',
+        type: 'drink',
+        name: "פחית קוקה קולה",
+        price: 9,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330381/Patats/ueey1qdlf5euaqxjy4yz.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kgopbnbnyd',
+        type: 'drink',
+        name: "פחית קולה זירו",
+        price: 9,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330418/Patats/yzdigsoqyftzdakwhfgw.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'psdsdebgd',
+        type: 'drink',
+        name: "פחית ספרייט",
+        price: 9,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648331134/Patats/kqr1zyb2mcflnikjernh.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kgopgfgfyd',
+        type: 'drink',
+        name: "פחית ספרייט זירו",
+        price: 9,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648331061/Patats/fbyb9gr7vy9mefoesd4b.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'pdedfdbgd',
+        type: 'drink',
+        name: "פחית פאנטה",
+        price: 9,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330381/Patats/pv2rh8oxi8op0lfl0nmf.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kg45opyd',
+        type: 'drink',
+        name: "קוקה קולה 0.5 ליטר",
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648331079/Patats/o3izsfvk6t2id9kq62gu.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'pdeb12gd',
+        type: 'drink',
+        name: "קולה זירו 0.5 ליטר",
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648331057/Patats/uca7vurhxvscapwoqsf1.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kgopyd',
+        type: 'drink',
+        name: "פאנטה 0.5 ליטר",
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648331086/Patats/b64wtzswhjhwenfaiczb.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kqwxgoyd',
+        type: 'drink',
+        name: "פיוזטי אפרסק 0.5 ליטר",
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330381/Patats/dojuu3puqentlmza5dud.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kgpijhgopyd',
+        type: 'drink',
+        name: "נביעות אפרסק 0.5 ליטר",
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330418/Patats/fxfxmal5th0fmkkzj7rn.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kgozsdfpyd',
+        type: 'drink',
+        name: "נביעות תפוח 0.5 ליטר",
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330418/Patats/f5cjlkclzwnnot5zhivv.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'kgophuoiphyd',
+        type: 'drink',
+        name: "נביעות ענבים 0.5 ליטר",
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330382/Patats/sxwsvcmyerekcirvgpwv.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'qaswrf',
+        type: 'drink',
+        name: 'סודה 330 מ"ל',
+        price: 7,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330382/Patats/azineiipxso0gaoup75d.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'loikyh',
+        type: 'drink',
+        name: 'פריגת ענבים 330 מ"ל',
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330381/Patats/vcivhvejhaapabmlgeim.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'tgrfed',
+        type: 'drink',
+        name: 'פריגת תפוזים 330 מ"ל',
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330382/Patats/ezebd4nafla5fccnrune.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'crhttersfd',
+        type: 'drink',
+        name: 'מים מינרליים 0.5 ליטר',
+        price: 8,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330382/Patats/adiwyceu7km7brfzx3b6.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'oiukjgfds',
+        type: 'drink',
+        name: 'בירה שחורה 0.5 ליטר',
+        price: 10,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330381/Patats/vlyekywrylgqqxelw4vi.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'tervsad',
+        type: 'drink',
+        name: 'בירה קרלסברג',
+        price: 15,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330382/Patats/yghjlckhtetggjuactqh.png',
+        addons: [
+        ]
+    },
+    {
+        _id: 'aqmjfgyj',
+        type: 'drink',
+        name: 'בירה טובורג',
+        price: 15,
+        inStock: true,
+        description: " ",
+        img: 'https://res.cloudinary.com/dubjerksn/image/upload/v1648330381/Patats/mivvzmgjeq9uyflxnoz2.png',
+        addons: [
+        ]
     },
 ]

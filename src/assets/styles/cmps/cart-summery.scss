@@ -1,0 +1,28 @@
+.cart-summery-container{
+    width: 100%;
+    gap: 3px;
+    .cart-subtotal,.cart-total{
+        width: 100%;
+       :nth-child(1) {
+           padding-inline-start: 5px;
+        } 
+        :nth-child(2) {
+           padding-inline-end: 7px;
+       }
+       span {
+           padding-inline-end: 3px;
+       }
+    }
+    .cart-total{
+        font-size: larger;
+    }
+    .purchase-btn{
+        border-radius: 2px;
+        margin-top: 10px;
+        color: white;
+        background-color: $clr1;
+        font-size: 28px;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,41 @@
+.payment-page {
+  padding-top: 20px;
+  .order-details-container {
+    justify-content: flex-start;
+    .link-wrapper {
+      display: none;
+    }
+  }
+  .form-container {
+    direction: rtl;
+    width: 70%;
+    form.payment-form {
+      .heading-container {
+        padding-bottom: 10px;
+      }
+      .info,
+      .address,
+      .payment {
+        flex-grow: 1;
+      }
+      .input-stack {
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+        .input-container {
+          padding: 0 0 20px 15px;
+          .input-title {
+            font-family: assistant-bold;
+          }
+          input {
+            height: 35px;
+            width: 180px;
+          }
+        }
+      }
+      hr{
+        width: 75%;
+      }
+    }
+  }
+}

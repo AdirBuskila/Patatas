@@ -1,0 +1,29 @@
+.check-out-bar {
+  width: 100vw;
+  height: 40px;
+  background-color: $clr1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  font-family: assistant-bold;
+  padding: 5px 10px;
+  .cart-total {
+    // padding-inline-start: 10px;
+    font-size: 20px;
+  }
+  .container {
+    // padding-inline-end: 10px;
+    .img-container {
+      img {
+        width: 30px;
+      }
+    }
+    .title-container {
+      p {
+        font-size: 20px;
+      }
+    }
+  }
+}

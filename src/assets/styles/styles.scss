@@ -10,13 +10,31 @@
 // PAGES
 @import 'pages/home-page.scss';
 @import 'pages/product-details.scss';
+@import 'pages/payment-page.scss';
+@import 'pages/pick-delivery-page.scss';
 
 // Components
 @import 'cmps/app-header.scss';
 @import 'cmps/product-list.scss';
 @import 'cmps/product-preview.scss';
-@import 'cmps/dropdown.scss';
-@import 'cmps/categories-grid.scss';
+@import 'cmps/dashboard.scss';
+@import 'cmps/order-details.scss';
+@import 'cmps/cart-summery.scss';
+@import 'cmps/menu-nav.scss';
+@import 'cmps/addon-list.scss';
+@import 'cmps/addon-preview.scss';
+@import 'cmps/branch.scss';
+@import 'cmps/branch-info.scss';
+@import 'cmps/menu-bar.scss';
+@import 'cmps/side-bar-nav.scss';
+@import 'cmps/check-out-bar.scss';
+@import 'cmps/order-summery.scss';
+@import 'cmps/user-msg.scss';
+
+
+
+
+@import 'cmps/cart-item-preview.scss';
 
 
 

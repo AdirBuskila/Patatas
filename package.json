@@ -1,5 +1,5 @@
 {
-  "name": "vue-starter",
+  "name": "patats",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -8,6 +8,8 @@
     "test:unit": "vitest --environment jsdom"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^1.0.1",
+    "animate.css": "^4.1.1",
     "element-plus": "^2.0.4",
     "eslint": "^8.10.0",
     "sass": "^1.49.7",

@@ -1,6 +1,6 @@
 // Colors
 // primary
-$clr1: #d6e5fa;
+$clr1: #d6b48f;
 // secondary
 $clr2: #f4f5f7;
 $clr3: #172b4d;
@@ -11,9 +11,11 @@ $clr6: #fff;
 // LAYOUT
 $layoutPadding: 20px;
 // Breakpoints
-$break-narrow: 460px;
-$break-normal: 720px;
-$break-wide: 1200px;
+$break-narrow: 660px;
+$break-normal: 820px;
+$break-normal-plus: 1100px;
+$break-wide: 1500px;
 $padded-break-narrow: $break-narrow+$layoutPadding * 2;
 $padded-break-normal: $break-normal+$layoutPadding * 2;
+$padded-break-normal-plus: $break-normal-plus+$layoutPadding * 2;
 $padded-break-wide: $break-wide+$layoutPadding * 2;

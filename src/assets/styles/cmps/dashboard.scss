@@ -1,0 +1,45 @@
+.dashboard {
+  align-items: flex-start;
+  gap: 15px;
+  padding-top: 20px;
+  .branch-info {
+    display: none;
+  }
+  .order-details-container {
+    .link-wrapper-back {
+      display: none;
+    }
+  }
+  .menu-bar {
+    display: none;
+  }
+  .check-out-bar {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .dashboard {
+    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+    grid-column: 1/-1;
+    padding: 0;
+    .branch-info {
+      display: grid;
+      padding: 20px 0 5px 0;
+      text-align: center;
+      font-size: 16px;
+      .open-hours{
+          padding: 0 7px 0 7px;
+      }
+    }
+    .menu-bar {
+      display: flex;
+    }
+    .check-out-bar {
+      display: flex;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+.user-msg{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #46464686;
+    .msg-container{
+        width: 90vw;
+        height: 80px;
+        border-radius: 4px;
+        background: white;
+        p{
+
+        }
+    }
+}

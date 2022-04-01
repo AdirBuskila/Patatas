@@ -1,0 +1,30 @@
+.el-popper {
+  display: flex;
+  .cart-dropdown-container {
+    width: 320px;
+    .info-container {
+        padding-top: 10px;
+      .total-info {
+          font-size: 16px;
+          font-weight: bold;
+          color: rgb(238, 71, 71);
+          font-family: assistant-bold;
+          .cart-length{
+            :first-child{
+              padding-inline-end: 5px;
+            }
+          }
+      }
+      .btn-container {
+        padding-top: 10px;
+        .el-dropdown-menu__item{
+          width: inherit;
+          height: inherit;
+          &:hover{
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

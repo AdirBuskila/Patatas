@@ -17,6 +17,11 @@
     @content;
   }
 }
+@mixin for-normal-plus-layout {
+  @media (min-width: $padded-break-normal-plus) {
+    @content;
+  }
+}
 
 @mixin for-wide-layout {
   @media (min-width: $padded-break-wide) {

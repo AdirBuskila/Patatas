@@ -1,14 +1,54 @@
-.app-header-container {
-  background-color: black;
-  color: aliceblue;
-  .app-header {
-    height: 7vh;
-    .logo {
-      font-family: righteous;
-      font-size: 36px;
+.app-header-wrapper {
+  height: 16vh;
+  background-color: #fff;
+  .app-header-container {
+    .branch-info {
+      font-family: assistant;
+      font-size: 18px;
+      padding-inline-end: 20px;
+      .svg-anchor {
+        order: -1;
+        .svg-container {
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background-color: $clr1;
+          margin-inline-end: 5px;
+          margin-inline-start: 5px;
+        }
+        svg {
+          height: 15px;
+          width: 15px;
+        }
+      }
     }
-    nav {
-      font-size: 19px;
+    .logo-container {
+      img {
+        width: 100px;
+      }
     }
   }
+}
+
+@media only screen and (max-width: 760px) {
+  .app-header-wrapper {
+  height: 100px;
+
+    .app-header-container {
+      .branch-info {
+        display: none;
+        .svg-anchor {
+          .svg-container {
+          }
+          svg {
+          }
+        }
+      }
+      .logo-container {
+        img {
+        }
+      }
+    }
+  }
+
 }

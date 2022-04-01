@@ -1,0 +1,33 @@
+.branch-info {
+  font-family: assistant;
+  font-size: 18px;
+  padding-inline-end: 20px;
+  background-color: rgba(255, 255, 255, 0.669);
+  .svg-anchor {
+    order: -1;
+    .svg-container {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: $clr1;
+      margin-inline-end: 5px;
+      margin-inline-start: 5px;
+    }
+    svg {
+      height: 15px;
+      width: 15px;
+    }
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .branch-info {
+    .svg-anchor {
+      .svg-container {
+      }
+      svg {
+      }
+    }
+  }
+
+}

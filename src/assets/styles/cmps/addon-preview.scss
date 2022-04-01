@@ -1,0 +1,49 @@
+.addon-preview-container {
+  margin: 0 0 15px 20px;
+  .addon-preview {
+    border: 1px black solid;
+    border-radius: 3px;
+    &.selected {
+      background-color: #d6b48f;
+    }
+    p {
+      color: black;
+    }
+    .regular {
+      padding: 10px;
+    }
+    .extra {
+      .addon-name {
+        padding: 10px;
+      }
+      .price {
+        border-right: 1px solid black;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .addon-preview-container {
+  margin: 0 0 5px 10px;
+
+    .addon-preview {
+      &.selected {
+      }
+      p {
+      }
+      .regular {
+        padding: 5px;
+      }
+      .extra {
+        .addon-name {
+          padding: 5px;
+        }
+        .price {
+          padding: 5px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.order-summery {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: #464646;
+  position: fixed;
+  z-index: 100;
+  display: none;
+  &.open{
+      display: flex;
+  }
+  .title {
+    width: 100%;
+    p {
+      font-family: assistant-bold;
+      font-size: 30px;
+      color: white;
+    }
+    border-bottom: $clr1 1px solid;
+  }
+  .cart-item-list-container {
+    width: 100%;
+    padding: 0 15px 0 15px;
+    flex-grow: 1;
+    .cart-item-container {
+      color: white;
+      .item-preview {
+        .item-name,
+        .item-price {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+  .cart-summery-container {
+    padding-bottom: 20px;
+    color: white;
+    .link-wrapper,
+    .link-wrapper-back {
+      display: none;
+    }
+    .cart-subtotal,
+    .cart-total {
+      font-size: larger;
+    }
+  }
+  .actions-container {
+    width: 100%;
+    height: 40px;
+    .action:first-child{
+      border-right: 1px solid black;
+    }
+    .action {
+      font-size: 20px;
+      font-family: assistant-bold;
+      width: 50%;
+      background-color: $clr1;
+    }
+  }
+}

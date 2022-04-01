@@ -1,0 +1,25 @@
+.menu-bar {
+  background-color: $clr1;
+  height: 35px;
+  width: 100%;
+  flex-direction: row-reverse;
+
+  .menu-bar-container {
+    flex-direction: row-reverse;
+    padding-inline-end: 20px;
+    .menu-img-container {
+      margin-top: 2px;
+      img {
+        width: 28px;
+      }
+    }
+  }
+  .title-container {
+    padding-inline-end: 7px;
+    p {
+      color: white;
+      font-family: assistant-bold;
+      font-size: 22px;
+    }
+  }
+}

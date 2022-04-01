@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <AppHeader />
+    <AppHeader/>
     <RouterView />
   </div>
 </template>
@@ -11,7 +11,7 @@ import AppHeader from '@/cmps/AppHeader.vue';
 export default {
   components: {
     AppHeader,
-  },
+},
   async created() {
     await this.$store.dispatch({ type: 'loadProducts' });
   },

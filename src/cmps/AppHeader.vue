@@ -1,27 +1,26 @@
 <template>
-  <div class="app-header-container full">
-    <div class="app-header-wrapper main-layout">
-      <section class="app-header flex space-between align-center">
-        <RouterLink to="/"><h3 class="logo">Phone for you</h3></RouterLink>
-        <nav>
-          <RouterLink to="/">Home</RouterLink> |
-          <RouterLink to="/about">About</RouterLink>
-        </nav>
-      </section>
-      <div class="dropdowns-container flex">
-        <DropDowns />
-      </div>
+  <div class="app-header-wrapper main-layout">
+    <div class="app-header-container full flex align-center justify-center">
+      <BranchInfo />
+      <Router-Link to="/">
+        <div class="logo-container">
+          <img
+            src="https://res.cloudinary.com/dubjerksn/image/upload/v1648396610/Patats/wemxftho7eyqjos5rd0b.png"
+          />
+        </div>
+      </Router-Link>
     </div>
   </div>
 </template>
 
 <script>
-import DropDowns from "./DropDowns.vue";
-export default { components: { DropDowns } };
+import BranchInfo from './BranchInfo.vue';
+
+export default {
+  components: {
+    BranchInfo,
+  },
+};
 </script>
 
-<style>
-el-dropdown-menu {
-  widows: 800px;
-}
-</style>
+<style></style>

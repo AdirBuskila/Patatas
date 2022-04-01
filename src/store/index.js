@@ -1,7 +1,9 @@
 import { createStore } from 'vuex';
 // import userModule from '@/store/modules/user.module.js';
 import productModule from './modules/product.module';
+import modalModule from './modules/modal.module';
 // Create a new store instance.
+
 const store = createStore({
     strict: true,
     state: {
@@ -12,8 +14,8 @@ const store = createStore({
     },
     actions: {},
     modules: {
-        // userModule,
         productModule,
+        modalModule
     }
 });
 

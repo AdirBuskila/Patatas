@@ -1,0 +1,37 @@
+.menu-nav{
+    font-family: assistant-bold;
+    width: 15%;
+    .heading{
+        width: 100%;
+        background-color: black;
+        justify-content: center;
+        h1{
+            color: aliceblue;
+            font-size: 28px ;
+        }
+    }
+    .menu-option{
+    font-family: assistant;
+        font-size: 18px ;
+        width: 100%;
+        height: 40px;
+        justify-content: end;
+        background-color: $clr1;
+        border-bottom: 1px solid white;
+        align-items: center;
+        p{
+            padding-inline-end: 8px;
+        }
+        &.active {
+    font-family: assistant-bold;
+
+        }
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .menu-nav{
+        display: none;
+    }
+
+}
